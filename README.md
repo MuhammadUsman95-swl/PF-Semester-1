@@ -9,7 +9,7 @@
 
 - 📫 How to reach me **musmancsuet@gmail.com**
 
-- ⚡ Fun fact **I am a serious person**
+- ⚡ Fun fact **I am friendly.**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
@@ -20,6 +20,4 @@
 
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=muhammadusman95-swl&show_icons=true&locale=en&layout=compact" alt="muhammadusman95-swl" /></p>
 
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=muhammadusman95-swl&show_icons=true&locale=en" alt="muhammadusman95-swl" /></p>
-
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=muhammadusman95-swl&" alt="muhammadusman95-swl" /></p>
+<p><img align="left" src="https://github-readme-streak-stats.herokuapp.com/?user=muhammadusman95-swl&" alt="muhammadusman95-swl" /></p>
