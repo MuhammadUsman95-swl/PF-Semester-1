@@ -24,7 +24,6 @@ int main()
     cout<<"Ticket price: ";
     cin>> ticketPrice;
 
-
     printTicket(name,departurePoint,arrivalPoint,cnic,phoneNumber, ticketPrice);   
 
     return 0;
