@@ -1,32 +1,106 @@
 #include <iostream>
+#include <windows.h>
+#include <conio.h>
 using namespace std;
 
-string displayLoginPage(string);
+const int maxCount = 100;
+int userCount = 0;
+string username[maxCount];
+string password[maxCount];
+string role[maxCount];
+
+int loginPage();
+string signup(string [], string [], string []);
+bool checkCredential(string , string, string);
+void header2();
+int userMenu();
+void contactUs();
 void printHeader();
-void menu();
+void gotoxy(int x, int y);
+char getCharAtxy(short int x, short int y);
+int ticketCost(string, string);
 void printTicket(string, string, string, int64_t, int64_t, int);
+void travelPackages();
 
 int main()
 {
-    system("cls");
-
-    string name, departurePoint, arrivalPoint;
+    string name, departurePoint, arrivalPoint, writeOption, openInterface;
     int64_t cnic,phoneNumber;
-    int ticketPrice;
-    string writeOption;
-    int chooseOption;
- 
+    int option, numberOfTickets;
+    ticketCost(arrivalPoint, departurePoint);
 
-    writeOption = displayLoginPage(writeOption);
-    while(true){
-    if( writeOption == "ok" || writeOption == "exit")
+    system("cls");
+    printHeader();
+    getch();
+    system("cls");
+    int loginOption = 0;
+    while(loginOption!=3){
+
+    loginOption = loginPage();
+    
+    if(loginOption == 1){
+    system("cls");
+    header2();        
+    cout<<"Enter a username... ";
+    cin>> username[userCount];
+    cout<<"E1nter a password... ";
+    cin>> password[userCount];
+    cout<<"Enter your role (Either 'Admin' or 'User')... ";
+    cin>>role[userCount];
+    if( (role[userCount] != "Admin") && (role[userCount] != "User") )
     {
-        system("cls");
-        printHeader();
-        menu();
-        cout<<"Enter an option (only number): ";
-        cin>> chooseOption;
+         cout<<"Invalid role. Please enter 'Admin' or 'User'."<<endl;
+         Sleep(3000);
     }
+    else if((role[userCount] == "Admin") || (role[userCount] == "User")){
+    system("cls");
+    gotoxy(30, 30);
+    cout<<"                                      Hi! "<<username[userCount] <<endl;
+    gotoxy(30, 31);
+    cout<<"Your account has been created successfuly. Go to ' Login with credentials to continue process. ' ";
+    Sleep(5000);
+    userCount = userCount + 1;
+    }
+
+    bool isExist = checkCredential(username[userCount], password[userCount], role[userCount]);
+    if(isExist){
+    system("cls");
+    gotoxy(30, 30);
+    cout<<"This account already exist. Go to ' Login with credentials to continue process with existing account. ' ";
+    Sleep(5000);    
+    }
+    }
+    if(loginOption == 2){
+    system("cls");
+    header2();
+    string name;
+    string password;
+    string role;
+      
+    cout<<"Enter your username... ";
+    cin>> name;
+    cout<<"Enter your password... ";
+    cin>> password;
+    cout<<"Enter your role... ";
+    cin>> role;
+    bool isValid = checkCredential(name, password, role);
+    if(isValid == true && role == "User"){
+         openInterface = "userInterface";
+    }
+    else if(isValid == true && role == "Admin"){
+        openInterface = "adminInterface";
+    }
+    else if(isValid == false){
+       cout<<"Invalid Credentials. Please enter correct credentials."<<endl; 
+    }
+    Sleep(1000);
+    }
+        
+    if(openInterface == "userInterface" ){
+    int chooseOption = 0;  
+    while(true){  
+    system("cls");   
+    chooseOption = userMenu();                   
 
     if( chooseOption == 1)
     {
@@ -41,46 +115,51 @@ int main()
      cin>> departurePoint;
      cout<<"Enter your place of arrival: ";
      cin>> arrivalPoint;
-     cout<<"Enter 'exit': ";
-     cin>> writeOption;        
+     cout<<"Enter number of tickets: ";
+     cin>> numberOfTickets;    
     }
-    if(chooseOption == 2)
+    else if(chooseOption == 2)
     {
-     system("cls");   
-     cout<<"Enter 'exit':";
-     cin>> writeOption;        
+     system("cls");           
     }
-    if(chooseOption == 3)
+    else if(chooseOption == 3)
     {
      system("cls");
-     cout<<"Enter 'exit':";
-     cin>> writeOption;
+     travelPackages();
     }
-    if(chooseOption == 4)
+    else if(chooseOption == 4)
     {
-     system("cls");   
-     cout<<"Enter 'exit':";
-     cin>> writeOption;
+     system("cls"); 
+     contactUs();  
     }
-    if(chooseOption == 5 )
+    else if(chooseOption == 5)
     {
         system("cls");
-        printTicket(name,departurePoint,arrivalPoint,cnic,phoneNumber, ticketPrice);    
-        cout<<"Enter 'exit' to go on menu:";
-        cin>> writeOption;
+        printTicket(name, departurePoint, arrivalPoint, cnic, phoneNumber, numberOfTickets);
     }
-    if( chooseOption == 6)
+    else if(chooseOption == 6)
     {
         system("cls");
+        loginOption = loginPage();
         break;
     }  
-    
-
-    
+    else{
+        system("cls");
+        userMenu();
+        cout<<"      INVALID INPUT "<<endl;
+        cout<<"Please enter a valid option > ";
+        cin>> chooseOption;
+    }    
+    }
+    loginOption = loginPage();   
+    }
     }
 
+    
+    
     return 0;
 }
+
 
 string displayLoginPage(string writeOption) 
 {
